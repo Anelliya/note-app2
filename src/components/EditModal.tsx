@@ -16,15 +16,14 @@ interface Props{
 }
 
 const EditModal = ({ handleToggleEditModal, show, currentNote }: Props) => {
-  const [setDisabled, toggleSetDisabled] = useState(true);
-
-  const [name, setName] = useState(currentNote.name);
+  const [setDisabled, toggleSetDisabled] = useState<boolean>(true);
+  const [name, setName] = useState<string>(currentNote.name);
   const [content, setContent] = useState(currentNote.content);
   const [category, setCategory] = useState(currentNote.category);
   const dispatch = useAppDispatch();
   
 
-  const handleDataUpdate = ({ currentTarget }: React.SyntheticEvent): void => {
+  const handleDataUpdate = ({ currentTarget }: React.SyntheticEvent<HTMLInputElement>): void => {
     
     name && content ? toggleSetDisabled(false) : toggleSetDisabled(true);
     currentTarget.name === 'name' && setName(currentTarget.value);
@@ -34,11 +33,12 @@ const EditModal = ({ handleToggleEditModal, show, currentNote }: Props) => {
 
 
   const submitData = () => {
-    if (currentNote.name !== name || currentNote.content !== content) {
+    if (currentNote.name !== name || currentNote.content !== content || currentNote.category !== category) {
       const { id } = currentNote;
       dispatch(editNote({ name, category, content, id }));
     }
     handleToggleEditModal();
+    
   };
 
   return (

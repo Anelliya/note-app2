@@ -1,3 +1,5 @@
+import React from 'react'
+
 interface IProps {
   summary: {
     Task: {
@@ -12,12 +14,10 @@ interface IProps {
      totalActive: number,
      totalArchived: number,
    },
-      
     }
-
 }
 
-const MarkupSummery = ({ summary }: IProps) => {
+const MarkupSummeryTable = ({ summary }: IProps) => {
   return (
     <>
       <tr>
@@ -39,4 +39,4 @@ const MarkupSummery = ({ summary }: IProps) => {
   );
 };
 
-export default MarkupSummery;
+export default MarkupSummeryTable;

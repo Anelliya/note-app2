@@ -28,18 +28,18 @@ import AddModal from './components/AddModal.tsx';
 import EditModal from './components/EditModal.tsx';
 import TableHeader from './components/TableHeader.tsx';
 import TableList from './components/TableList.tsx';
+import MarkupNotesTable from './components/MarkupNotesTable.tsx';
+import MarkupSummeryTable from './components/MarkupSummeryTable.tsx';
 
 import styles from './components/Notes.module.css';
 
-import MarkupTableNote from './components/MarkupTableNote.tsx';
-import MarkupSummery from './components/MarkupSummery.tsx';
 
 import INote from './noteInterface.tsx'
 
 
 function App() {
-  const [showModal, setShowModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showEditModal, setShowEditModal] = useState<boolean>(false);
   const [currentNote, setCurrentNote] = useState<INote|null |undefined>(null);
 
   const activeNotes: INote[] = useAppSelector((notes: INote[]) => getActiveNotes(notes));
@@ -48,11 +48,11 @@ function App() {
 
   const dispatch = useAppDispatch();
 
-  const handleToggleModal:()=>void = () => {
+  const handleToggleModal = ():void => {
     setShowModal(!showModal);
   };
 
-  const handleToggleEditModal:()=>void = () => {
+  const handleToggleEditModal = ():void => {
     setShowEditModal(!showEditModal);
   };
 
@@ -81,7 +81,6 @@ function App() {
 
   const onDelete = (e : React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault()
-    //const t = target as HTMLButtonElement;
     const targetNoteId: string | null = e.currentTarget.getAttribute('target');
     targetNoteId && dispatch(deleteNote(targetNoteId));
   };
@@ -107,7 +106,7 @@ function App() {
           <TableHeader labels={tableHeaderForNotesTable} />
           <TableList>
             {activeNotes.map(note => (
-              <MarkupTableNote note={note}>
+              <MarkupNotesTable note={note} key={note.id}>
                 <Button
                   variant="outline-secondary"
                   id="edit-button"
@@ -132,7 +131,7 @@ function App() {
                   onClick={onDelete}
                   children={<MdDeleteForever target={note.id} />}
                 />
-              </MarkupTableNote>
+              </MarkupNotesTable>
             ))}
           </TableList>
         </NotesTable>
@@ -149,7 +148,7 @@ function App() {
             <TableHeader labels={tableHeaderForNotesTable} />
             <TableList >
               {archivedNotes.map(note => (
-                <MarkupTableNote note={note}>
+                <MarkupNotesTable note={note} key={note.id}>
                   <Button
                     className="btn btn-outline-secondary"
                     variant="outline-secondary"
@@ -158,7 +157,7 @@ function App() {
                     children={<BiArchiveOut target={note.id} />}
                     onClick={onChangeStatus}
                   />
-                </MarkupTableNote>
+                </MarkupNotesTable>
               ))}
             </TableList>
           </Table>
@@ -167,7 +166,7 @@ function App() {
           <Table hover>
             <TableHeader labels={tableHeaderForSummeryTable} />
             <TableList>
-              <MarkupSummery summary={summary} />
+              <MarkupSummeryTable summary={summary} />
             </TableList>
           </Table>
         </SummeryTable>

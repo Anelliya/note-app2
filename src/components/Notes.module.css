@@ -71,7 +71,6 @@ td{
 
 .itemContent:hover {
     width:20%;
-    position: absolute;
     white-space: inherit;
     background-color: rgb(242, 244, 246);  
     word-wrap:break-word;
