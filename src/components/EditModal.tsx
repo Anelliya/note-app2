@@ -1,12 +1,11 @@
 import React from 'react';
-// import { useDispatch } from 'react-redux';
-import { useAppDispatch } from '../hook.tsx'
+import { useAppDispatch } from '../hook'
 
 import { Modal, Button, Form } from 'react-bootstrap/';
 import { useState } from 'react';
 
-import { editNote } from '../redux/notesSlice.ts';
-import INote from './noteInterface.tsx'
+import { editNote } from '../redux/notesSlice';
+import INote from '../noteInterface'
 
 interface Props{
   handleToggleEditModal: () => void,
@@ -23,19 +22,29 @@ const EditModal = ({ handleToggleEditModal, show, currentNote }: Props) => {
   const dispatch = useAppDispatch();
   
 
-  const handleDataUpdate = ({ currentTarget }: React.SyntheticEvent<HTMLInputElement>): void => {
-    
-    name && content ? toggleSetDisabled(false) : toggleSetDisabled(true);
-    currentTarget.name === 'name' && setName(currentTarget.value);
-    currentTarget.name === 'category' && setCategory(currentTarget.value);
-    currentTarget.name === 'content' && setContent(currentTarget.value);
+  const handleDataUpdate = (
+    e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>): void => {
+    const currentName: string = e.currentTarget.name;
+    const currentValue: string = e.currentTarget.value;
+    const handlers = {
+      'name': setName,
+      'category': setCategory,
+      'content': setContent
+    };
+    toggleSetDisabled(!(name.length > 1 && content.length >1));
+    handlers[currentName as keyof Object](currentValue);
   };
 
+  
 
-  const submitData = () => {
+
+  const submitData = () => {  
     if (currentNote.name !== name || currentNote.content !== content || currentNote.category !== category) {
-      const { id } = currentNote;
-      dispatch(editNote({ name, category, content, id }));
+      if (currentNote.name.length > 0 && currentNote.content.length > 0) {
+        
+        const { id } = currentNote;
+        dispatch(editNote({ name, category, content, id }));
+      }
     }
     handleToggleEditModal();
     
@@ -53,7 +62,7 @@ const EditModal = ({ handleToggleEditModal, show, currentNote }: Props) => {
             type="input"
             name="name"
             value={name}
-            onChange={handleDataUpdate}
+            onInput={handleDataUpdate}
           />
 
           <Form.Label htmlFor="categoty">Category</Form.Label>
@@ -75,7 +84,7 @@ const EditModal = ({ handleToggleEditModal, show, currentNote }: Props) => {
             style={{ height: '100px' }}
             name="content"
             value={content}
-            onChange={handleDataUpdate}
+            onInput={handleDataUpdate}
           />
         </Form>
       </Modal.Body>

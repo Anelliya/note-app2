@@ -1,9 +1,9 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useAppSelector, useAppDispatch } from './hook.tsx'
+import { useAppSelector, useAppDispatch } from './hook'
 
 import { useState } from 'react';
-import { deleteNote, toggleNoteStatus } from './redux/notesSlice.ts';
+import { deleteNote, toggleNoteStatus } from './redux/notesSlice';
 import {
   getActiveNotes,
   getArchivedNotes,
@@ -20,27 +20,35 @@ import { BiArchiveOut } from 'react-icons/bi';
 import { Table } from 'react-bootstrap';
 
 
-import NotesTable from './components/NotesTable.tsx';
-import ArchiveTable from './components/ArchiveTable.tsx';
-import MainHeader from './components/MainHeader.tsx';
-import SummeryTable from './components/SummeryTable.tsx';
-import AddModal from './components/AddModal.tsx';
-import EditModal from './components/EditModal.tsx';
-import TableHeader from './components/TableHeader.tsx';
-import TableList from './components/TableList.tsx';
-import MarkupNotesTable from './components/MarkupNotesTable.tsx';
-import MarkupSummeryTable from './components/MarkupSummeryTable.tsx';
+import NotesTable from './components/NotesTable';
+import ArchiveTable from './components/ArchiveTable';
+import MainHeader from './components/MainHeader';
+import SummeryTable from './components/SummeryTable';
+import AddModal from './components/AddModal';
+import EditModal from './components/EditModal';
+import TableHeader from './components/TableHeader';
+import TableList from './components/TableList';
+import MarkupNotesTable from './components/MarkupNotesTable';
+import MarkupSummeryTable from './components/MarkupSummeryTable';
 
 import styles from './components/Notes.module.css';
 
 
-import INote from './noteInterface.tsx'
+import INote from './noteInterface'
 
 
 function App() {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
-  const [currentNote, setCurrentNote] = useState<INote|null |undefined>(null);
+  const [currentNote, setCurrentNote] = useState<INote>({
+    id: '' ,
+    name: '',
+    created: '',
+    category: '',
+    content: '',
+    dates: '',
+    status: '',
+  });
 
   const activeNotes: INote[] = useAppSelector((notes: INote[]) => getActiveNotes(notes));
   const archivedNotes: INote[] = useAppSelector((notes: INote[])=> getArchivedNotes(notes));
@@ -61,9 +69,8 @@ function App() {
     handleToggleEditModal();
     const currentNoteId: string | null = e.currentTarget.getAttribute('target');
     
-    const note: INote | undefined = activeNotes?.find((note: INote) => note.id === currentNoteId)
-    
-    setCurrentNote(note);
+    const note= activeNotes?.find((note: INote) => note.id === currentNoteId)
+    note && setCurrentNote(note);
   };
 
   const onChangeStatus = (e: React.MouseEvent<HTMLButtonElement>) => {

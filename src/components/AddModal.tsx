@@ -3,7 +3,7 @@ import { Modal, Button, Form } from 'react-bootstrap/';
 import { useState } from 'react';
 import React from 'react';
 
-import { addNote } from '../redux/notesSlice.ts';
+import { addNote } from '../redux/notesSlice';
 
 interface Props{
   show: boolean;
@@ -21,7 +21,7 @@ const AddModal = ({ show, handleToggleModal }:Props) => {
   const dispatch = useDispatch();
 
   const submitData = () => {
-    if (name.length > 0 && content.length > 0) {
+    if (name.length > 1 && content.length > 1) {
       dispatch(addNote({ name, category, content }));
     }
     handleToggleModal();
@@ -31,11 +31,18 @@ const AddModal = ({ show, handleToggleModal }:Props) => {
   };
 
   const hanbleDataUpdate = (e: React.ChangeEvent<HTMLInputElement>):void => {
-    name && content ? toggleSetDisabled(false) : toggleSetDisabled(true);
 
-    e.target.name === 'name' && setName(e.target.value);
-    e.target.name === 'category' && setCategory(e.target.value);
-    e.target.name === 'content' && setContent(e.target.value);
+    const currentName: string = e.currentTarget.name;
+    const currentValue: string = e.currentTarget.value;
+
+    const handlers = {
+      'name': setName,
+      'category': setCategory,
+      'content': setContent
+    };
+
+    toggleSetDisabled(!(name.length > 1 && content.length >1));
+    handlers[currentName as keyof Object](currentValue);
   };
 
   return (
@@ -52,7 +59,7 @@ const AddModal = ({ show, handleToggleModal }:Props) => {
           <Form.Select
             aria-label="category"
             name="category"
-            onInput={hanbleDataUpdate}
+            onInput={()=> hanbleDataUpdate}
           >
             <option>Task</option>
             <option>Random Thought</option>

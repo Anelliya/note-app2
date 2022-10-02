@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Notes.module.css';
 
-import INote from './noteInterface.tsx'
+import INote from '../noteInterface'
 
 
 interface IProps {
