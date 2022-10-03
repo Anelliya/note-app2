@@ -7,7 +7,7 @@ interface IProps{
 const ArchiveTable:React.FC<IProps>  = ({ children }) => {
   return (
     <>
-      <div className="container text-center">
+      <div className="container text-center text-2xl">
         <h3>Archived</h3>
       </div>
       {children}

@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components{
+
+    .tableHead{
+        @apply text-white bg-gray-700 border-gray-400 table-fixed 
+    }
+
+
+    .table{
+        @apply table-fixed text-sm 
+    }
+
+    .th {
+        @apply align-bottom border-y border-white
+    }
+
+    td{
+        @apply align-middle whitespace-nowrap overflow-hidden text-ellipsis border-collapse p-3 border-y
+    }
+
+    .btn{
+        @apply bg-white text-gray-600 border-gray-400
+    }
+
+    .modal-btn{
+        @apply mb-8
+    }
+
+    .modal-form {
+        @apply p-6 mr-0 ml-0 border-o
+    }
+
+    .itemContent:hover {
+        @apply w-5 bg-gray-400 text-white break-words  text-clip border whitespace-normal 
+      
+    }
+
+   
+    
+}
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+

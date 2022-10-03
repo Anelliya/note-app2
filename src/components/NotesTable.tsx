@@ -1,10 +1,6 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
 
-import styles from './Notes.module.css';
-
-const { table } = styles;
-
 type Props = {
   children: React.ReactNode
 }
@@ -12,7 +8,7 @@ type Props = {
 function NotesTable({ children }:Props) {
   return (
     <>
-      <Table className={table} hover>
+      <Table className='table' hover>
         {children}
       </Table>
     </>

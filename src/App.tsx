@@ -2,6 +2,8 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useAppSelector, useAppDispatch } from './hook'
 
+import './input.css'
+
 import { useState } from 'react';
 import { deleteNote, toggleNoteStatus } from './redux/notesSlice';
 import {
@@ -30,8 +32,6 @@ import TableHeader from './components/TableHeader';
 import TableList from './components/TableList';
 import MarkupNotesTable from './components/MarkupNotesTable';
 import MarkupSummeryTable from './components/MarkupSummeryTable';
-
-import styles from './components/Notes.module.css';
 
 
 import INote from './noteInterface'
@@ -103,18 +103,18 @@ function App() {
 
   const tableHeaderForSummeryTable = ['Note Category', 'Active', 'Archived'];
 
-  const { table } = styles;
 
   return (
     <>
       <MainHeader  />
-      <Container container-xl="true">
-        <NotesTable>
-          <TableHeader labels={tableHeaderForNotesTable} />
-          <TableList>
+      <Container fluid="sm" className='max-w-5xl' >
+        <NotesTable >
+          <TableHeader labels={tableHeaderForNotesTable}  />
+          <TableList > 
             {activeNotes.map(note => (
               <MarkupNotesTable note={note} key={note.id}>
                 <Button
+                  className='mr-1'
                   variant="outline-secondary"
                   id="edit-button"
                   name="edit-button"
@@ -123,6 +123,7 @@ function App() {
                   onClick={onEditBtnClick}
                 />
                 <Button
+                  className='mr-1'
                   variant="outline-secondary"
                   id="to-archive-button"
                   name="to-archive-button"
@@ -143,19 +144,21 @@ function App() {
           </TableList>
         </NotesTable>
         <Button
-          className={styles.btn}
+          className="text-gray-900 border-gray-900 shadow-sm"
           id="create-note-btn"
           variant="primary"
           onClick={handleToggleModal}
         >
           Create Note
         </Button>
-        <ArchiveTable>
-          <Table className={table} hover>
+        <ArchiveTable  >
+          <Table
+            className='table'
+            hover>
             <TableHeader labels={tableHeaderForNotesTable} />
             <TableList >
               {archivedNotes.map(note => (
-                <MarkupNotesTable note={note} key={note.id}>
+                <MarkupNotesTable note={note} key={note.id} >
                   <Button
                     className="btn btn-outline-secondary"
                     variant="outline-secondary"

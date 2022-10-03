@@ -5,7 +5,7 @@ interface Prop {
 }
 
 const TableList = ({ children }: Prop) => (
-  <tbody className="">{children}</tbody>
+  <tbody>{children}</tbody>
 );
 
 export default TableList;
