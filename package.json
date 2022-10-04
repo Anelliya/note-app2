@@ -19,6 +19,7 @@
     "gh-pages": "^4.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
+    "react-bootstrap-storybook": "^1.5.1",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-redux": "^8.0.4",
@@ -75,13 +76,18 @@
     "@storybook/manager-webpack5": "^6.5.12",
     "@storybook/node-logger": "^6.5.12",
     "@storybook/preset-create-react-app": "^4.1.2",
+    "@storybook/preset-scss": "^1.0.3",
     "@storybook/react": "^6.5.12",
     "@storybook/testing-library": "^0.0.13",
     "@types/uuid": "^8.3.4",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "css-loader": "^6.7.1",
     "eslint": "^8.24.0",
     "prettier": "^2.7.1",
     "prop-types": "^15.8.1",
+    "sass": "^1.55.0",
+    "sass-loader": "^13.0.2",
+    "style-loader": "^3.3.1",
     "webpack": "^5.74.0"
   }
 }
